@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>MyForm</title> 
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <form id="myForm" action="" name="fof" >
+            <table>
+                <tr>
+                    <td>Initials</td>
+                    <td><input name="fio" type="text" placeholder="Ivanov Ivan Ivanovich" required></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input name="email" type="email" placeholder="examlpe@yandex.ru" required></td>
+                </tr>
+                <tr>
+                    <td>Telephone</td>
+                    <td><input name="phone" type="text" placeholder="+7(999)999-99-99" required></td>
+                </tr>
+            </table>
+            <input id="submitButton" type="button" value="Submit" onclick="MyForm.submit()">
+        </form>
+        <div id="resultContainer"></div>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>
