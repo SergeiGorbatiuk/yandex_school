@@ -3,3 +3,13 @@
     border-style: solid;
     border-color: red;
 }
+.success{
+    border-width: 1px;
+    border-style: solid;
+    border-color: green;
+}
+.progress{
+    border-width: 1px;
+    border-style: solid;
+    border-color: yellow;
+}

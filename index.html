@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <form id="myForm" action="" name="fof" >
+        <form id="myForm" action="http://127.0.0.1:8000/responses/progress.json" name="fof" onsubmit="return MyForm.submit()" >
             <table>
                 <tr>
                     <td>Initials</td>
@@ -21,7 +21,7 @@
                     <td><input name="phone" type="text" placeholder="+7(999)999-99-99" required></td>
                 </tr>
             </table>
-            <input id="submitButton" type="button" value="Submit" onclick="MyForm.submit()">
+            <input id="submitButton" type="submit" value="Submit">
         </form>
         <div id="resultContainer"></div>
         <script type="text/javascript" src="index.js"></script>

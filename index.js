@@ -1,8 +1,28 @@
+
 var form = document.forms['fof'];
 function Form(){
     this.submit = function() {
         var validationResult = this.validate();
-        alert(validationResult.errorFields);
+        if (validationResult.isValid){
+            if (form['fio'].classList.contains("error")){
+                form['fio'].classList.remove("error");
+            }
+            if (form['email'].classList.contains("error")){
+                form['email'].classList.remove("error");
+            }
+            if (form['phone'].classList.contains("error")){
+                form['phone'].classList.remove("error");
+            }
+            document.getElementById("submitButton").disabled = true;
+            SendAjax(form.getAttribute("action"), document.getElementById("resultContainer"));
+        }
+        else{
+            for (err of validationResult.errorFields){
+                form[err].classList.add("error");
+            }
+        }
+    
+        return false;
     }
 
     this.validate = function() {
@@ -36,7 +56,7 @@ function Form(){
         }
         if(sum > 30){
             validationResult.isValid = false;
-            validationResult.errorFields.push("phone");
+            validationResult.errorFields.push('phone');
         }
         return validationResult;
     }
@@ -55,5 +75,38 @@ function Form(){
         form['phone'].value = data.phone;
     }
 }
+
+function SendAjax(url, resultContainer){
+    var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    var response = JSON.parse(request.responseText);
+                    if (response.status === 'progress') {
+                        resultContainer.setAttribute('class', 'progress');
+                        sleep(response.timeout);
+                        SendAjax(url, resultContainer);
+                    } else if (response.status === 'success') {
+                        resultContainer.setAttribute('class', 'success');
+                        resultContainer.innerHTML = 'Success';
+                    } else {
+                        resultContainer.setAttribute('class', 'error');
+                        resultContainer.innerHTML = response.reason;
+                    }
+                } else {
+                    resultContainer.setAttribute('class', 'error');
+                    resultContainer.innerHTML = request.status + ': ' + request.statusText;
+                }
+            }
+        }
+        request.open('GET', url);
+        request.send();
+}
+
+function sleep(ms) {
+        var start = new Date().getTime();
+        while((new Date() - start) < ms){}
+} 
+
 
 var MyForm = new Form();
